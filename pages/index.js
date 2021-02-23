@@ -1,7 +1,51 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import Button from '../components/button'
 
 export default function Home() {
+  const [users, setUsers] = useState([])
+  const getDataFromAPI = async() => {
+    try {
+      const response = await fetch('https://api.discogs.com/releases/249504')
+      const data = await response.json()
+      setUsers(data.identifiers)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getDataFromMongo = async() => {
+    try {
+      const response = await fetch('/api/mongo')
+      const data = await response.json()
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getDataFromAPI()
+    getDataFromMongo()
+  }, [])
+
+
+  const onRequestPost = async() => {
+    try {
+      const request = {
+        method: 'POST', // or 'PUT'
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }
+      const response = await fetch('/api/get-users', request)
+      const data = await response.json()
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="container">
       <Head>
@@ -11,6 +55,9 @@ export default function Home() {
 
       <main>
         hola Lima Frontend
+        <div>
+          {users.map((user, i) => <div key={i}>{user.description}</div>)}
+        </div>
         <ul>
           <li>
             <Link href="/contacto">
@@ -23,6 +70,18 @@ export default function Home() {
             </Link>
           </li>
         </ul>
+        <Button onClick={onRequestPost}>
+          Request POST
+        </Button>
+        <Button onClick={onRequestPost}>
+          Request GET
+        </Button>
+        <Button onClick={onRequestPost}>
+          Request PUT
+        </Button>
+        <Button onClick={onRequestPost}>
+          Request DELETE
+        </Button>
       </main>
 
       <footer>

@@ -1,0 +1,13 @@
+$orange: #e68929;
+$white: white;
+
+.limaFrontendBtn {
+  border: none;
+  padding: 5px 10px;
+  background-color: $orange;
+  border-radius: 5px;
+  margin: 4px;
+  &--textColor {
+    color: $white;
+  }
+}
