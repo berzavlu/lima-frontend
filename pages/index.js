@@ -5,6 +5,8 @@ import Button from '../components/button'
 
 export default function Home() {
   const [users, setUsers] = useState([])
+  const [mongoData, setMongoData] = useState([])
+
   const getDataFromAPI = async() => {
     try {
       const response = await fetch('https://api.discogs.com/releases/249504')
@@ -19,7 +21,7 @@ export default function Home() {
     try {
       const response = await fetch('/api/mongo')
       const data = await response.json()
-      console.log(data)
+      setMongoData(data.data)
     } catch (error) {
       console.log(error)
     }
@@ -54,9 +56,14 @@ export default function Home() {
       </Head>
 
       <main>
-        hola Lima Frontend
+        <h1>hola Lima Frontend</h1>
         <div>
+          <h4>Data de api externa</h4>
           {users.map((user, i) => <div key={i}>{user.description}</div>)}
+        </div>
+        <div>
+          <h4>Data del mongo</h4>
+          {mongoData.map((user, i) => <div key={i}>{user.name}</div>)}
         </div>
         <ul>
           <li>
@@ -73,13 +80,13 @@ export default function Home() {
         <Button onClick={onRequestPost}>
           Request POST
         </Button>
-        <Button onClick={onRequestPost}>
+        <Button onClick={() => alert('falta api GET de ejemplo')}>
           Request GET
         </Button>
-        <Button onClick={onRequestPost}>
+        <Button onClick={() => alert('falta api PUT de ejemplo')}>
           Request PUT
         </Button>
-        <Button onClick={onRequestPost}>
+        <Button onClick={() => alert('falta api DELETE de ejemplo')}>
           Request DELETE
         </Button>
       </main>

@@ -38,10 +38,11 @@ export async function connectToDatabase() {
       useUnifiedTopology: true,
     }
 
-    cached.promise = MongoClient.connect('mongodb+srv://admin:admin@cluster0.tlled.mongodb.net/mitocode', opts).then((client) => {
+    cached.promise = MongoClient.connect('mongodb+srv://admin:admin@cluster0.tlled.mongodb.net', opts).then((client) => {
       console.log(client)
       return {
         client,
+        db: client.db('mitocode'),
       }
     })
   }
