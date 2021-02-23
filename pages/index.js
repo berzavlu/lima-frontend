@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Head from 'next/head'
 
 export default function Home() {
@@ -10,6 +11,18 @@ export default function Home() {
 
       <main>
         hola Lima Frontend
+        <ul>
+          <li>
+            <Link href="/contacto">
+              <a>Contacto</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/ruta-privada">
+              <a>Ruta Privada</a>
+            </Link>
+          </li>
+        </ul>
       </main>
 
       <footer>
